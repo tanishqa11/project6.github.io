@@ -45,7 +45,7 @@
   
  
 
-    <form name="submit-to-google-sheet" method="post" action ="">
+    <form autocomplete="off" method="post" name="google-sheet">
     <p>First Name <input type="text"  name="firstname" required maxlength="20"> last name <input type="text" name="lastname"  maxlength="20"></p>
     <P> Gender : <input type="radio" name="gender" >Male 
                <input type="radio" name="gender">Female
@@ -68,20 +68,15 @@
 
 </form>
 <script>
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbzca7VY-LQJs3EcCY6__ZXXRZnAVhMU9TeHkowBG4TvRYc1iC0HRB644Bk38c-1KYcMaw/exec'; // Replace with your Google Apps Script web app URL
-  const form = document.forms['submit-to-google-sheet'];
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-      .then(response =>{
-        success.innerHTML="data sent successfully";
-        setTimeout(function(){
-          success.innerHTML="",},5000)
-          form.reset();
-      })
-      .catch(error => console.error('Error!', error.message));
-  });
-</script>
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyUhErBbhV4skKDB2U2hYdmjCrU9KRRFVgHXxHpuXwUUwXDOzR3kWUUkiTpY9pkvQUsZw/exec'
+            const form = document.forms['google-sheet']
+          
+            form.addEventListener("submit", e => {
+              e.preventDefault()
+              fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => alert("Thanks for Contacting us..! We Will Contact You Soon..."))
+                .catch(error => console.error('Error!', error.message))
+            })
+          </script>
 </body>
 </html>
