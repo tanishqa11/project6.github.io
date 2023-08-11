@@ -44,16 +44,44 @@
     </nav>
   
  
- <form method="post" action="mailto:tanishqagarg11@gmail.com">
-    <h2><u>GENERAL ENQUIRY FORM</u></h2>
-    <p>First Name <input type="text" maxlength="20"> last name <input type="text" maxlength="20"></p>
-    <p> Address <input type="text" maxlength="200"></p>
-    <p>City<input type="text" maxlength="20"> Pincode <input type="text" maxlength="6"></p>
-    <p>Mobile <input type="text" size="10" maxlength="10" minlength="10"></p>
-    <p> Email <input type ="mail" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" title="Please enter a valid Gmail address (example@gmail.com)"></p>
+
+    <form name="submit-to-google-sheet">
+    <p>First Name <input type="text"  name="firstname" required maxlength="20"> last name <input type="text" name="lastname"  maxlength="20"></p>
+    <P> Gender : <input type="radio" name="gender" >Male 
+               <input type="radio" name="gender">Female
+              </P>
+    <p> Address <input type="text"  name="address" required maxlength="200"></p>
+    <p>Age :<select name="Age">
+      <option name="below 18" >Below 18</option>
+      <option name="18-15" >18-25</option>
+      <option name="25-40" >25-40</option>
+      <option name="40+" >40+</option>
+    </select></p>
+
+    <p>City<input type="text" name="city"  required maxlength="20"> Pincode <input type="text"  name="pincode"required  minlength="6"></p>
+    <p>Mobile <input type="tel" name="phone" size="10" required maxlength="10" ></p>
+    <p> Email <input type ="email"  name="email" required placeholder="example@gmail.com" title="Please enter a valid Gmail address (example@gmail.com)"></p>
     <p> password <input type="password"  required minlength="8" title="Password must be at least 8 characters long"></p>
     <br><br>
-    <input type="submit" value="Submit">  
+    <input type="submit" value="Submit" name="submit">  
+    <span id="success"></span>
+
 </form>
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbwDqbRCxuSTq1waOQnZh3WQV95f4maY4OOs16NeA_qiY9JmZUakvA32yN0Y-UVePtwFpw/exec'; // Replace with your Google Apps Script web app URL
+  const form = document.forms['submit-to-google-sheet'];
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+      .then(response =>{
+        success.innerHTML="data sent successfully";
+        setTimeout(function(){
+          success.innerHTML="",},5000)
+          form.reset();
+      })
+      .catch(error => console.error('Error!', error.message));
+  });
+</script>
 </body>
 </html>
