@@ -57,41 +57,68 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
  
 
     <form method="post" id="myForm" >
-      <p>First Name <input type="text"  name="firstname" required maxlength="20"> last name <input type="text" name="lastname"  maxlength="20"></p>
-      <P> Gender : <input type="radio" name="gender" >Male 
-                 <input type="radio" name="gender">Female
+      <p>First Name <input type="text" id="name" name="firstname" required maxlength="20"> last name <input type="text" id="lname" name="lastname"  maxlength="20"></p>
+      <P> Gender : <input type="radio" id="gender" name="gender" >Male 
+                 <input type="radio" id="gender"  name="gender">Female
                 </P>
-      <p> Address <input type="text"  name="address" required maxlength="200"></p>
-      <p>Age :<select name="Age">
+      <p> Address <input type="text" id="address" name="address" required maxlength="200"></p>
+      <p>Age :<select  id="age" name="Age">
         <option name="below 18" >Below 18</option>
         <option name="18-15" >18-25</option>
         <option name="25-40" >25-40</option>
         <option name="40+" >40+</option>
       </select></p>
   
-      <p>City<input type="text" name="city"  required maxlength="20"> Pincode <input type="text"  name="pincode"required  minlength="6"></p>
-      <p>Mobile <input type="tel" name="phone" size="10" required maxlength="10" ></p>
-      <p> Email <input type ="email"  name="email" required placeholder="example@gmail.com" title="Please enter a valid Gmail address (example@gmail.com)"></p>
-      <p> password <input type="password"  name="password" required minlength="8" title="Password must be at least 8 characters long"></p>
+      <p>City<input type="text" id="city" name="city"  required maxlength="20"> Pincode <input type="text"  id='code' name="pincode"required  minlength="6"></p>
+      <p>Mobile <input type="tel" id="phone" name="phone" size="10" required maxlength="10" ></p>
+      <p> Email <input type ="email" id="mail"  name="email" required placeholder="example@gmail.com" title="Please enter a valid Gmail address (example@gmail.com)"></p>
+      <p> password <input type="password" id="password"  name="password" required minlength="8" title="Password must be at least 8 characters long"></p>
       <br><br>
-      <input type="submit" value="Submit" name="submit">  
+      <input type="submit" value="Submit"  name="submit">  
       <span id="success"></span>
   
   </form>
   <script>
-    document.getElementById('myForm').addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevent the form from submitting
-      var form = event.target;
+document.getElementById('myForm').addEventListener('submit', function(event) {
+  event.preventDefault();
 
-      // Perform any necessary data processing here (e.g., sending data to a server)
+  var formData = {
+    firstname: document.getElementById('name').value,
+    lastname: document.getElementById('lname').value,
+    gender: document.getElementById('gender').value,
+    address: document.getElementById('adress').value,
+    Age: document.getElementById('age').value,
+    city: document.getElementById('city').value,
+    phone: document.getElementById('phone').value,
+    email: document.getElementById('mail').value,
+    pincode: document.getElementById('code').value,
+    password: document.getElementById('password').value
+      };
 
-      // Display thank you message as an alert
-      alert('Thank you for your submission!');
+  var dataHtml = `
+    <html>
+      <head>
+        <title>Submitted Form Data</title>
+      </head>
+      <body>
+        <h1>Submitted Form Data</h1>
+        <p><strong>Name:</strong> ${formData.firstname} ${formData.lastname}</p>
+        <p><strong>Age:</strong> ${formData.age}</p>
+        <!-- Display other form fields here -->
+      </body>
+    </html>
+  `;
 
-      // Reset the form
-      form.reset();
-    });
-  </script>
-  
-  </body>
-  </html>
+  // Create a Blob object to save as HTML file
+  var blob = new Blob([dataHtml], { type: 'text/html' });
+
+  // Create a link to download the HTML file
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'mydata.html';
+  a.click();
+});
+</script>
+
+</body>
+</html>
