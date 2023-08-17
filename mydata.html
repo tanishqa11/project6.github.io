@@ -51,14 +51,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </li>
 
             
-          </form>
         </div>
       </div>
     </nav>
 <h1>Submitted Form Data</h1>
   <table id="data-table">
     <thead>
-       <tr>
+      <tr>
         <th>firstname</th>
         <th>lastname</th>
         <th>gender</th>
@@ -75,8 +74,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- Table rows will be dynamically added here -->
     </tbody>
   </table>
+  <script>
+
+    var Data = (JSON.parse(localStorage.getItem("myobject")))
+    var table = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+    var newRow = table.insertRow();
+
+    for (var key in Data) {
+      var cell = newRow.insertCell();
+      cell.appendChild(document.createTextNode(Data[key]));
+    }
+  </script>
 </body>
+
 </html>
-  
-    
     
