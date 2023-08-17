@@ -50,6 +50,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="https://tanishqa11.github.io/project6.github.io/index.html">Home</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="https://tanishqa11.github.io/project6.github.io/mydata.html">Data</a>
+            </li>
         </div>
       </div>
     </nav>
@@ -94,29 +97,15 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
     pincode: document.getElementById('code').value,
     password: document.getElementById('password').value
       };
+var table = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+  var newRow = table.insertRow(table.rows.length);
+  for (var key in formData) {
+    var cell = newRow.insertCell();
+    cell.appendChild(document.createTextNode(formData[key]));
+  }
 
-  var dataHtml = `
-    <html>
-      <head>
-        <title>Submitted Form Data</title>
-      </head>
-      <body>
-        <h1>Submitted Form Data</h1>
-        <p><strong>Name:</strong> ${formData.firstname} ${formData.lastname}</p>
-        <p><strong>Age:</strong> ${formData.age}</p>
-        <!-- Display other form fields here -->
-      </body>
-    </html>
-  `;
-
-  // Create a Blob object to save as HTML file
-  var blob = new Blob([dataHtml], { type: 'text/html' });
-
-  // Create a link to download the HTML file
-  var a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'mydata.html';
-  a.click();
+  // Display success message
+  document.getElementById('success').innerHTML = "Form submitted successfully!";
 });
 </script>
 
