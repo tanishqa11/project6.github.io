@@ -56,58 +56,66 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
     </nav>
-  
- 
 
-    <form method="post" id="myForm" >
-      <p>First Name <input type="text" id="name" name="firstname" required maxlength="20"> last name <input type="text" id="lname" name="lastname"  maxlength="20"></p>
-      <P> Gender : <input type="radio" id="gender" name="gender" >Male 
-                 <input type="radio" id="gender"  name="gender">Female
-                </P>
-      <p> Address <input type="text" id="address" name="address" required maxlength="200"></p>
-      <p>Age :<select  id="age" name="Age">
-        <option name="below 18" >Below 18</option>
-        <option name="18-15" >18-25</option>
-        <option name="25-40" >25-40</option>
-        <option name="40+" >40+</option>
+    <form method="post" id="myForm">
+    <p>First Name <input type="text" id="name" name="firstname" required maxlength="20"> last name <input type="text"
+        id="lname" name="lastname" maxlength="20"></p>
+    <P> Gender : <input type="radio" id="gender" name="gender">Male
+      <input type="radio" id="gender" name="gender">Female
+    </P>
+    <p> Address <input type="text" id="address" name="address" required maxlength="200"></p>
+    <p>Age :<select id="age" name="Age">
+        <option name="below 18">Below 18</option>
+        <option name="18-15">18-25</option>
+        <option name="25-40">25-40</option>
+        <option name="40+">40+</option>
       </select></p>
-  
-      <p>City<input type="text" id="city" name="city"  required maxlength="20"> Pincode <input type="text"  id='code' name="pincode"required  minlength="6"></p>
-      <p>Mobile <input type="tel" id="phone" name="phone" size="10" required maxlength="10" ></p>
-      <p> Email <input type ="email" id="mail"  name="email" required placeholder="example@gmail.com" title="Please enter a valid Gmail address (example@gmail.com)"></p>
-      <p> password <input type="password" id="password"  name="password" required minlength="8" title="Password must be at least 8 characters long"></p>
-      <br><br>
-      <input type="submit" value="Submit"  name="submit">  
-      <span id="success"></span>
-  
+
+    <p>City<input type="text" id="city" name="city" required maxlength="20"> Pincode <input type="text" id='code'
+        name="pincode" required minlength="6"></p>
+    <p>Mobile <input type="tel" id="phone" name="phone" size="10" required maxlength="10"></p>
+    <p> Email <input type="email" id="mail" name="email" required placeholder="example@gmail.com"
+        title="Please enter a valid Gmail address (example@gmail.com)"></p>
+    <p> password <input type="password" id="password" name="password" required minlength="8"
+        title="Password must be at least 8 characters long"></p>
+    <br><br>
+    <input type="submit" value="submit" name="submit">
+    <span id="success"></span>
+
   </form>
   <script>
-document.getElementById('myForm').addEventListener('submit', function(event) {
-  event.preventDefault();
+   document.addEventListener("DOMContentLoaded", function () {
+    var form = document.getElementById("myForm");
 
-  var formData = {
-    firstname: document.getElementById('name').value,
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var selectedGender = document.querySelector('input[name="gender"]:checked');
+      var genderValue = selectedGender ? selectedGender.value : '';
+
+     var formData = {
+    form:document.getElementById("myForm"),
+    firstname:document.getElementById('name').value,
     lastname: document.getElementById('lname').value,
-    gender: document.getElementById('gender').value,
-    address: document.getElementById('adress').value,
+    gender: genderValue,
+    address: document.getElementById('address').value,
     Age: document.getElementById('age').value,
-    city: document.getElementById('city').value,
+    city:document.getElementById('city').value,
     phone: document.getElementById('phone').value,
     email: document.getElementById('mail').value,
     pincode: document.getElementById('code').value,
-    password: document.getElementById('password').value
-      };
-var table = document.getElementById('data-table').getElementsByTagName('tbody')[0];
-  var newRow = table.insertRow(table.rows.length);
-  for (var key in formData) {
-    var cell = newRow.insertCell();
-    cell.appendChild(document.createTextNode(formData[key]));
-  }
+    password: document.getElementById('password').value,
+  };
+    
+      localStorage.setItem("myobject" ,JSON.stringify(formData))
 
-  // Display success message
-  document.getElementById('success').innerHTML = "Form submitted successfully!";
-});
-</script>
+      window.location.href="mydata.html";
+    });
+  });
+  </script>
 
 </body>
+
 </html>
+ 
+
+    
